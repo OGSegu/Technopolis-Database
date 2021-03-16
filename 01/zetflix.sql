@@ -1,4 +1,3 @@
--- Type of film example: [comedy, drama, action and etc]
 CREATE TABLE kinds (
 	kind_id SERIAL PRIMARY KEY,
 	kind_name VARCHAR(16) NOT NULL
@@ -14,6 +13,7 @@ CREATE TABLE films (
 	film_name VARCHAR(64) NOT NULL,
 	kind_id INTEGER,
 	genre_id INTEGER,
+	rating NUMERIC(2, 2),
 	FOREIGN KEY (kind_id) REFERENCES kinds (kind_id),
 	FOREIGN KEY (genre_id) REFERENCES genres (genre_id)
 );
@@ -30,7 +30,8 @@ CREATE TABLE film_actors (
 	actor_id INTEGER NOT NULL,
 	role VARCHAR(32) NOT NULL DEFAULT 'Unknown',
 	FOREIGN KEY (film_id) REFERENCES films(film_id),
-	FOREIGN KEY (actor_id) REFERENCES actors(actor_id)
+	FOREIGN KEY (actor_id) REFERENCES actors(actor_id),
+	PRIMARY KEY (film_id, actor_id)
 );
 
 INSERT INTO actors (first_name, last_name, birth_date) VALUES 
