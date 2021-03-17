@@ -8,6 +8,13 @@ CREATE TABLE genres (
 	genre_name VARCHAR(16) NOT NULL
 );
 
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(16) NOT NULL,
+    password VARCHAR(32) NOT NULL,
+    email VARCHAR(32) NOT NULL
+);
+
 CREATE TABLE films (
 	film_id SERIAL PRIMARY KEY,
 	film_name VARCHAR(64) NOT NULL,
@@ -23,6 +30,14 @@ CREATE TABLE actors (
 	first_name VARCHAR(64) NOT NULL,
 	last_name VARCHAR(64) NOT NULL,
 	birth_date DATE
+);
+
+CREATE TABLE user_films (
+    user_id INTEGER NOT NULL,
+    film_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (film_id) REFERENCES films (film_id),
+    PRIMARY KEY (user_id, film_id)
 );
 
 CREATE TABLE film_actors (
